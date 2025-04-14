@@ -124,10 +124,8 @@ class Hangman():
             
             clear_screen()
 
-            time.sleep(2)
-
             if len(chsn) != 0:
-                print(f"Lettere già inserite: {chsn}")
+                print(f"Lettere già inserite: {chsn}\n")
 
             control = ""
 
@@ -145,7 +143,7 @@ class Hangman():
             Hangman.figure(lives)
 
             while True:
-                choosen_letter = input("Inserisci una lettera: ")
+                choosen_letter = input("Inserisci una lettera: ").lower()
 
                 if choosen_letter in chsn:
                     print("\nLettera già inserita!\n")
@@ -181,7 +179,7 @@ class Hangman():
                 break
 
             if lives == 0:
-                print(f"\nHai perso! La parole era {word}")
+                print(f"\nHai perso! La parola era '{word}'\n")
                 break
 
-            time.sleep(4)
+            time.sleep(3)
