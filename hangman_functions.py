@@ -185,16 +185,3 @@ class Hangman():
                 break
 
             time.sleep(4)
-         
-            
-
-
-
-
-
-
-
-
-
-
-
