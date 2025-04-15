@@ -32,7 +32,7 @@ class HangmanGUI:
         self.create_widgets()
 
     def create_widgets(self):
-        self.title_label = tk.Label(self.root, text="Benvenuto all'impiccato!", font=("Helvetica", 18, "bold"), bg="#f4f4f4")
+        self.title_label = tk.Label(self.root, text="Benvenuto al gioco dell'impiccato!", font=("Helvetica", 18, "bold"), bg="#f4f4f4")
         self.title_label.pack(pady=10)
 
         self.diff_label = tk.Label(self.root, text="Scegli la difficoltà:", font=("Helvetica", 12), bg="#f4f4f4")
@@ -44,6 +44,10 @@ class HangmanGUI:
 
         self.start_button = tk.Button(self.root, text="Inizia Gioco", command=self.start_game, bg="#4caf50", fg="white", width=20)
         self.start_button.pack(pady=10)
+
+        # Label per la visualizzazione del numero di vite rimanenti
+        self.lives_label = tk.Label(self.root, text="", font=("Helvetica", 12, "bold"), bg="#f4f4f4")
+        self.lives_label.pack(pady=5)
 
         self.word_label = tk.Label(self.root, text="", font=("Courier", 20), bg="#f4f4f4")
         self.word_label.pack(pady=15)
@@ -64,15 +68,23 @@ class HangmanGUI:
             messagebox.showwarning("Attenzione", "Seleziona una difficoltà!")
             return
 
+        # Imposta le vite in base alla difficoltà scelta
         self.lives = LIVES_MAP[difficulty]
         self.word = random.choice(WORDS)
         self.guessed_letters = []
         self.remaining_letters = len(set(self.word))
 
+        # Aggiorna la visualizzazione della parola e del disegno
         self.update_word_display()
         self.update_hangman()
         self.info_label.config(text="")
         self.guessed_label.config(text="Lettere inserite: ")
+        # Mostra il numero delle vite rimanenti
+        self.lives_label.config(text=f"Vite rimaste: {self.lives}")
+
+        # Disabilita il menu a tendina della difficoltà durante la partita
+        self.diff_menu.config(state=tk.DISABLED)
+        self.start_button.config(state=tk.DISABLED)
 
         self.input_label.pack()
         self.input_entry.pack()
@@ -99,7 +111,7 @@ class HangmanGUI:
             lambda: self.canvas.create_line(120, 130, 140, 160, width=2)  # Gamba dx
         ]
 
-        errors = 5 - self.lives
+        errors = (5 - self.lives) + 1
         for i in range(errors):
             if i < len(parts):
                 parts[i]()
@@ -113,7 +125,7 @@ class HangmanGUI:
             return
 
         if letter in self.guessed_letters:
-            self.info_label.config(text="Hai già inserito questa lettera!")
+            self.info_label.config(text="Hai già inserito questa lettera!", fg="red")
             return
 
         self.guessed_letters.append(letter)
@@ -124,6 +136,9 @@ class HangmanGUI:
         else:
             self.lives -= 1
             self.info_label.config(text="Lettera sbagliata!", fg="red")
+        
+        # Aggiorna la label delle vite rimanenti ad ogni mossa
+        self.lives_label.config(text=f"Vite rimaste: {self.lives}")
 
         self.guessed_label.config(text="Lettere inserite: " + ", ".join(self.guessed_letters))
         self.update_word_display()
@@ -146,6 +161,10 @@ class HangmanGUI:
         self.info_label.pack_forget()
         self.guessed_label.pack_forget()
 
+        # Riabilita la selezione della difficoltà per una nuova partita
+        self.diff_menu.config(state=tk.NORMAL)
+        self.start_button.config(state=tk.NORMAL)
+        self.lives_label.config(text="")
 
 if __name__ == "__main__":
     root = tk.Tk()
