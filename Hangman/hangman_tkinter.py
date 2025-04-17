@@ -6,7 +6,7 @@ WORDS = ["abete", "biscotto", "calamaro", "delfino", "elefante", "fragola", "giu
          "ingranaggio", "jeans", "koala", "labbra", "montagna", "neve", "orologio", "pennarello",
          "quadro", "razzo", "serpente", "tavolozza", "uva", "valigia", "zucchero", "arancia",
          "bagnino", "ciliegia", "drago", "elastico", "formaggio", "gabbiano", "isola", "lupo",
-         "mistero", "notte", "occhiali", "puzzle", "quaderno", "robot", "squalo", "tromba",
+         "mistero", "notte", "occhiali", "sardegna", "quaderno", "robot", "squalo", "tromba",
          "unicorno", "volpe", "zaino", "burrone", "ciambella", "domino", "esploratore", "forbice",
          "girasole", "lanterna"]
 
